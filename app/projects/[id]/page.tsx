@@ -6,30 +6,42 @@ const projectDetails: Record<string, any> = {
     fullDescription: "家計簿、カレンダー、そして運動記録を一つの画面で管理できる統合ツールです。",
     tech: ["PHP", "Laravel", "PostgreSQL", "Tailwind CSS"],
     points: ["MVCモデルに基づいた設計", "カレンダー表示ライブラリのカスタマイズ"],
+    // ★ 配列で定義
+    images: [
+      "/images/laravel/①.png",
+      "/images/laravel/②.png",
+      "/images/laravel/③.png",
+      "/images/laravel/④.png",
+      "/images/laravel/⑤.png",
+      "/images/laravel/⑥.png",
+      "/images/laravel/⑦.png"
+    ],
   },
   "sakurazaka-db": {
     title: "櫻坂46メンバーリスト (Java/AWS)",
     fullDescription: "推し活を効率化するために作成。メンバー情報や楽曲データを一括管理。",
     tech: ["Java 17", "Spring Boot", "MySQL", "AWS (EC2, S3, RDS)"],
     points: ["AWS S3を利用した画像アップロード機能", "リレーショナルDBによるデータ管理"],
+    // ★ 構成図も配列に入れることで一括処理
+    images: ["/images/structure_sakura.png"],
   },
   "scraping": {
     title: "ブログスクレイピング (GAS/TS)",
     fullDescription: "推しメンのブログ更新を毎分チェック。更新があれば即座に通知を受け取れるように設計しました。",
     tech: ["TypeScript", "Google Apps Script", "clasp"],
     points: ["Cheerioを用いた効率的なパース処理", "TypeScriptによる型安全な実装"],
+    images: [], // 画像があればここに追加
   },
   "kakeibo-vba": {
     title: "家計簿 (VBA)",
     fullDescription: "Excel上で動作する家計簿ツールです。カレンダー形式での入力と、グラフによる収支の自動可視化を実現しました。",
     tech: ["VBA", "Excel"],
     points: ["ユーザーフォームによる直感的な入力", "ピボットテーブルと連動した自動グラフ生成"],
+    images: [], // 画像があればここに追加
   },
 };
 
-// async を追加して、Promiseを待つように変更
 export default async function ProjectDetail({ params }: { params: Promise<{ id: string }> }) {
-  // ここで await して id を取り出す
   const { id } = await params;
   const project = projectDetails[id];
 
@@ -54,9 +66,29 @@ export default async function ProjectDetail({ params }: { params: Promise<{ id: 
           ))}
         </div>
 
+        {/* ★ 画像表示セクション（共通化） ★ */}
+        {project.images && project.images.length > 0 && (
+          <section className="mb-10">
+            <h2 className="text-xl font-semibold mb-3 border-b-2 border-blue-100 pb-1">
+              {id === 'sakurazaka-db' ? 'システム構成図' : 'イメージ画像'}
+            </h2>
+            <div className="flex flex-col gap-6">
+              {project.images.map((img: string, index: number) => (
+                <div key={index} className="bg-white p-2 border rounded-lg shadow-sm">
+                  <img 
+                    src={img} 
+                    alt={`${project.title} image ${index + 1}`} 
+                    className="w-full h-auto rounded"
+                  />
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
         <section className="mb-10">
           <h2 className="text-xl font-semibold mb-3 border-b-2 border-blue-100 pb-1">概要</h2>
-          <p className="text-gray-700 leading-relaxed">{project.fullDescription}</p>
+          <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{project.fullDescription}</p>
         </section>
 
         <section>
