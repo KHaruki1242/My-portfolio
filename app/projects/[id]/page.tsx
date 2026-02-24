@@ -23,21 +23,23 @@ const projectDetails: Record<string, any> = {
     tech: ["Java 17", "Spring Boot", "MySQL", "AWS (EC2, S3, RDS)"],
     points: ["AWS S3を利用した画像アップロード機能", "リレーショナルDBによるデータ管理"],
     // ★ 構成図も配列に入れることで一括処理
-    images: ["/images/structure_sakura.png"],
+    images: ["/images/JAVA/structure_sakura.png",
+             "/images/JAVA/①.png","/images/JAVA/②.png","/images/JAVA/③.png","/images/JAVA/④.png",
+             "/images/JAVA/⑤.png"],
   },
   "scraping": {
     title: "ブログスクレイピング (GAS/TS)",
     fullDescription: "推しメンのブログ更新を毎分チェック。更新があれば即座に通知を受け取れるように設計しました。",
     tech: ["TypeScript", "Google Apps Script", "clasp"],
     points: ["Cheerioを用いた効率的なパース処理", "TypeScriptによる型安全な実装"],
-    images: [], // 画像があればここに追加
+    images: ["/images/GAS/①.png"], // 画像があればここに追加
   },
   "kakeibo-vba": {
     title: "家計簿 (VBA)",
     fullDescription: "Excel上で動作する家計簿ツールです。カレンダー形式での入力と、グラフによる収支の自動可視化を実現しました。",
     tech: ["VBA", "Excel"],
     points: ["ユーザーフォームによる直感的な入力", "ピボットテーブルと連動した自動グラフ生成"],
-    images: [], // 画像があればここに追加
+    images: ["/images/VBA/①.png"], // 画像があればここに追加
   },
 };
 
@@ -70,7 +72,7 @@ export default async function ProjectDetail({ params }: { params: Promise<{ id: 
         {project.images && project.images.length > 0 && (
           <section className="mb-10">
             <h2 className="text-xl font-semibold mb-3 border-b-2 border-blue-100 pb-1">
-              {id === 'sakurazaka-db' ? 'システム構成図' : 'イメージ画像'}
+              {id === 'sakurazaka-db' ? 'システム構成図/イメージ画像' : 'イメージ画像'}
             </h2>
             <div className="flex flex-col gap-6">
               {project.images.map((img: string, index: number) => (
