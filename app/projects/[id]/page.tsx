@@ -23,9 +23,9 @@ const projectDetails: Record<string, any> = {
     tech: ["Java 17", "Spring Boot", "MySQL", "AWS (EC2, S3, RDS)"],
     points: ["AWS S3を利用した画像アップロード機能", "リレーショナルDBによるデータ管理"],
     // ★ 構成図も配列に入れることで一括処理
-    images: ["/images/JAVA/structure_sakura.png",
-             "/images/JAVA/①.png","/images/JAVA/②.png","/images/JAVA/③.png","/images/JAVA/④.png",
-             "/images/JAVA/⑤.png"],
+    images: ["/images/Java/structure_sakura.png",
+             "/images/Java/①.png","/images/Java/②.png","/images/Java/③.png","/images/Java/④.png",
+             "/images/Java/⑤.png"],
   },
   "scraping": {
     title: "ブログスクレイピング (GAS/TS)",
