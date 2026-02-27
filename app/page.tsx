@@ -3,25 +3,25 @@ import Link from 'next/link'; // 忘れずに追加
 const projects = [
   {
     id: "scheduler", // 追加
-    title: "スケジューラー (Laravel)",
+    title: "スケジューラー",
     description: "家計簿・カレンダー・運動量計測を統合した1日の管理ツール。",
     tech: ["PHP", "Laravel", "HTML/CSS"],
   },
   {
     id: "sakurazaka-db", // 追加
-    title: "櫻坂46メンバーリスト (Java/AWS)",
+    title: "櫻坂46メンバーリスト",
     description: "メンバーと楽曲のデータベース。AWS(S3/RDS)を活用した本格構成。",
     tech: ["Java", "SQL", "AWS", "Eclipse"],
   },
   {
     id: "scraping", // 追加
-    title: "ブログスクレイピング (GAS/TS)",
+    title: "ブログスクレイピング",
     description: "推しメンのブログ更新を自動で取得。TypeScriptで型安全に実装。",
     tech: ["TypeScript", "Google Apps Script"],
   },
   {
     id: "kakeibo-vba", // 追加
-    title: "家計簿 (VBA)",
+    title: "家計簿",
     description: "日々の収支をカレンダー形式で可視化するExcelツール。",
     tech: ["VBA", "Excel"],
   },
