@@ -18,7 +18,7 @@ const projectDetails: Record<string, any> = {
   // メンバーリスト (Java/AWS)
   "sakurazaka-db": {
     title: "櫻坂46メンバーリスト (Java/AWS)",
-    fullDescription: "推し活を効率化するために作成。メンバー情報や楽曲データを一括管理。「AWS S3とRDS(MySQL)」を連携させたり「SQL Serverとの連携」2つの構成で開発しました。",
+    fullDescription: "推し活を効率化するために作成。メンバー情報や楽曲データを一括管理。AWS S3とRDS(MySQL)を連携させた「クラウド運用版」と、SQL Serverを用いた「ローカル開発版」の2つの構成で開発しました。",
     tech: ["Java 21", "Spring Boot", "MySQL / SQL Server", "AWS (EC2, S3, RDS)"],
     points: [
       "AWS S3連携: 画像メタデータとS3オブジェクトの動的マッピング",
@@ -32,8 +32,8 @@ const projectDetails: Record<string, any> = {
       "/images/Java/①.png", "/images/Java/②.png", "/images/Java/③.png",
       "/images/Java/④.png", "/images/Java/⑤.png"
     ],
-    github: "https://github.com/KHaruki1242/SakuraService-", // AWS版のリポジトリ
-    github_local: "https://github.com/KHaruki1242/SakuraService2", // 新しく作成したJava&SQL版リポジトリ
+    github: "https://github.com/KHaruki1242/My-portfolio", // AWS版のリポジトリ
+    github_local: "https://github.com/KHaruki1242/SakuraService__Java", // 新しく作成したJava&SQL版リポジトリ
     code: `// SongService.java - STRING_AGGを用いた高度な集計SQL
 @Service
 public class SongService {
@@ -141,7 +141,7 @@ export default async function ProjectDetail({ params }: { params: Promise<{ id: 
             <>
               {structureImg && (
                 <div className="mb-8">
-                  <h2 className="text-xl font-semibold mb-3 border-l-4 border-blue-500 pl-3">システム構成図(AWS)</h2>
+                  <h2 className="text-xl font-semibold mb-3 border-l-4 border-blue-500 pl-3">システム構成図</h2>
                   <div className="bg-white p-2 border rounded-xl shadow-sm"><img src={structureImg} className="w-full h-auto rounded-lg" /></div>
                 </div>
               )}
