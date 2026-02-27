@@ -12,7 +12,7 @@ const projectDetails: Record<string, any> = {
       "/images/laravel/④.png", "/images/laravel/⑤.png", "/images/laravel/⑥.png",
       "/images/laravel/⑦.png"
     ],
-    github: "https://github.com/KHaruki1242/hello-laravel"
+    github: "https://github.com/KHaruki1242/hello-laravel" // 通常のGitHubリンク
   },
 
   // メンバーリスト (Java/AWS)
@@ -32,8 +32,8 @@ const projectDetails: Record<string, any> = {
       "/images/Java/①.png", "/images/Java/②.png", "/images/Java/③.png",
       "/images/Java/④.png", "/images/Java/⑤.png"
     ],
-    github: "https://github.com/KHaruki1242/My-portfolio", // AWS版のリポジトリ
-    github_local: "https://github.com/KHaruki1242/SakuraService__Java", // 新しく作成したJava&SQL版リポジトリ
+    github: "https://github.com/KHaruki1242/SakuraService-", // AWS版のリポジトリ
+    github_local: "https://github.com/KHaruki1242/SakuraService2", // 新しく作成したJava&SQL版リポジトリ
     code: `// SongService.java - STRING_AGGを用いた高度な集計SQL
 @Service
 public class SongService {
@@ -60,34 +60,7 @@ public class SongService {
     points: ["Cheerioを用いた効率的なパース処理", "TypeScriptによる型安全な実装", "トリガーによる定期実行の自動化"],
     images: ["/images/GAS/①.png"],
     link: "https://docs.google.com/spreadsheets/d/1iZeEO0-iypdu7CbrT96AMebsYGqjS4yGxOB4B7hc8Gg/edit?usp=sharing",
-    github: "https://github.com/KHaruki1242/GAS_scraping",
-    code: `// BlogScraping.ts - ブログの更新情報を抽出するコアロジック
-function ParserScraping() {
-  const url = "https://sakurazaka46.com/s/s46/diary/blog/list?ima=0000&ct=64";
-  const response = UrlFetchApp.fetch(url);
-  const content = response.getContentText();
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
-  const sheet = ss.getSheetByName("シート1");
-
-  const topic_block = Parser.data(content).from('<ul class="com-blog-mainlist">').to('</ul>').build();
-  const content_block = Parser.data(topic_block).from('<li class="sep-hr">').to('</li>').iterate();
-
-  let newArticles = [];
-  for (let i = 0; i < content_block.length; i++) {
-    const articleHtml = content_block[i];
-    const titlePartHtml = Parser.data(articleHtml).from('<h3 class="title">').to('</h3>').build();
-    const urlPath = Parser.data(titlePartHtml).from('<a href="').to('">').build();
-    
-    if (urlPath && urlPath.includes("/detail/")) {
-      const fullUrl = "https://sakurazaka46.com" + urlPath;
-      newArticles.push([fullUrl]);
-    }
-  }
-  if (newArticles.length > 0) {
-    sheet.insertRowsAfter(1, newArticles.length);
-    sheet.getRange(2, 1, newArticles.length, 1).setValues(newArticles);
-  }
-}`
+    github: "https://github.com/KHaruki1242/GAS_scraping"
   },
 
   // 家計簿 (VBA)
@@ -97,20 +70,7 @@ function ParserScraping() {
     tech: ["VBA", "Excel"],
     points: ["自作集計ロジックによる詳細な収支分析", "シートのバックアップとクリアの自動化"],
     images: ["/images/VBA/①.png"],
-    github: "https://github.com/KHaruki1242/VBA_kakeibo",
-    code: `' --- 2. 自作ループ集計 ---
-Sub Jisaku_SUM()
-    Dim i As Integer, EndRow2 As Integer
-    Dim Koteihi As Double, Hendouhi As Double
-    With ThisWorkbook.ActiveSheet
-        EndRow2 = .Cells(.Rows.Count, 1).End(xlUp).Row
-        For i = 4 To EndRow2
-            If .Cells(i, 2).Value = "固定費" Then Koteihi = Koteihi + .Cells(i, 4).Value
-            If .Cells(i, 2).Value = "変動費" Then Hendouhi = Hendouhi + .Cells(i, 4).Value
-        Next i
-        .Range("G8") = Koteihi: .Range("G9") = Hendouhi
-    End With
-End Sub`
+    github: "https://github.com/KHaruki1242/VBA_kakeibo"
   }
 };
 
@@ -135,52 +95,33 @@ export default async function ProjectDetail({ params }: { params: Promise<{ id: 
           ))}
         </div>
 
-        {/* 画像表示ロジック（横スクロール対応） */}
+        {/* 画像表示ロジック */}
         <section className="mb-10">
+          <h2 className="text-xl font-semibold mb-3 border-l-4 border-blue-500 pl-3">ギャラリー</h2>
           {id === 'sakurazaka-db' ? (
-            <>
+            <div className="space-y-8">
               {structureImg && (
-                <div className="mb-8">
-                  <h2 className="text-xl font-semibold mb-3 border-l-4 border-blue-500 pl-3">システム構成図</h2>
+                <div>
+                  <p className="text-sm text-gray-500 mb-2">システム構成図</p>
                   <div className="bg-white p-2 border rounded-xl shadow-sm"><img src={structureImg} className="w-full h-auto rounded-lg" /></div>
                 </div>
               )}
-              {dbImages.length > 0 && (
-                <div className="mb-8">
-                  <h2 className="text-xl font-semibold mb-3 border-l-4 border-gray-800 pl-3">DBテーブル設計 (MySQL / SQL Server)</h2>
-                  <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-thin">
-                    {dbImages.map((img: string, i: number) => (
-                      <div key={i} className="flex-shrink-0 w-80 bg-gray-50 p-2 border rounded-lg shadow-sm">
-                        <img src={img} className="w-full h-auto rounded" />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-              {uiImages.length > 0 && (
-                <div className="mb-8">
-                  <h2 className="text-xl font-semibold mb-3 border-l-4 border-green-500 pl-3">UI / アプリ画面</h2>
-                  <div className="flex gap-4 overflow-x-auto pb-4">
-                    {uiImages.map((img: string, i: number) => (
-                      <div key={i} className="flex-shrink-0 w-72 bg-white p-2 border rounded-lg shadow-sm">
-                        <img src={img} className="w-full h-auto rounded" />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </>
-          ) : (
-            <>
-              <h2 className="text-xl font-semibold mb-3 border-l-4 border-blue-500 pl-3">イメージギャラリー</h2>
               <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-thin">
-                {project.images.map((img: string, i: number) => (
+                {uiImages.concat(dbImages).map((img: string, i: number) => (
                   <div key={i} className="flex-shrink-0 w-80 bg-white p-2 border rounded-lg shadow-sm">
                     <img src={img} className="w-full h-auto rounded" />
                   </div>
                 ))}
               </div>
-            </>
+            </div>
+          ) : (
+            <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-thin">
+              {project.images.map((img: string, i: number) => (
+                <div key={i} className="flex-shrink-0 w-80 bg-white p-2 border rounded-lg shadow-sm">
+                  <img src={img} className="w-full h-auto rounded" />
+                </div>
+              ))}
+            </div>
           )}
         </section>
 
@@ -198,16 +139,23 @@ export default async function ProjectDetail({ params }: { params: Promise<{ id: 
           </section>
         )}
 
+        {/* ボタンエリア */}
         <div className="flex flex-col sm:flex-row justify-center gap-4 mt-12 mb-10">
-          {project.github && (
-            <a href={project.github} target="_blank" rel="noopener noreferrer" className="bg-gray-800 text-white px-6 py-3 rounded-full font-bold hover:bg-black transition-all text-center shadow-lg">
-              GitHub (AWS連携版)
-            </a>
-          )}
-          {project.github_local && (
-            <a href={project.github_local} target="_blank" rel="noopener noreferrer" className="bg-blue-600 text-white px-6 py-3 rounded-full font-bold hover:bg-blue-700 transition-all text-center shadow-lg">
-              GitHub (Java & SQL Server版)
-            </a>
+          {id === 'sakurazaka-db' ? (
+            <>
+              <a href={project.github} target="_blank" rel="noopener noreferrer" className="bg-gray-800 text-white px-6 py-3 rounded-full font-bold hover:bg-black transition-all text-center shadow-lg">
+                GitHub (Java&AWS版)
+              </a>
+              <a href={project.github_local} target="_blank" rel="noopener noreferrer" className="bg-blue-600 text-white px-6 py-3 rounded-full font-bold hover:bg-blue-700 transition-all text-center shadow-lg">
+                GitHub (Java&SQL版)
+              </a>
+            </>
+          ) : (
+            project.github && (
+              <a href={project.github} target="_blank" rel="noopener noreferrer" className="bg-gray-800 text-white px-6 py-3 rounded-full font-bold hover:bg-black transition-all text-center shadow-lg">
+                GitHubでコードを見る
+              </a>
+            )
           )}
           {project.link && (
             <a href={project.link} target="_blank" rel="noopener noreferrer" className="bg-green-600 text-white px-6 py-3 rounded-full font-bold hover:bg-green-700 transition-all text-center shadow-lg">
